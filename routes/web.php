@@ -8,18 +8,41 @@ use Illuminate\Support\Facades\Route;
 use Barryvdh\Debugbar\Twig\Extension\Debug;
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
+    GET - REQUEST A RESOURCE
+    POST - CREATE A NEW RESOURCE
+    PUT - UPDATE A RESOURCE
+    PATCH - MODIFY A RESOURCE
+    DELETE - DELETE A RESOURCE
+    OPTIONS - ASK THE SERVER WHICH VERBS ARE ALLOWED
 */
 
-// Route::get('/blog', [PostsController::class, 'index']);
-Route::resource('blog', PostsController::class);
+/*
+
+// GET
+Route::get('/blog', [PostsController::class, 'index']);
+Route::get('/blog/1', [PostsController::class, 'show']);
+
+// POST
+Route::get('/blog/create', [PostsController::class, 'create']);
+Route::post('/blog', [PostsController::class, 'store']);
+
+// PUT / PATCH
+Route::get('/blog/edit/1', [PostsController::class, 'edit']);
+Route::patch('/blog/1', [PostsController::class, 'update']);
+
+// DELETE
+Route::delete('/blog/1', [PostsController::class, 'destroy']);
+
+*/
+
+// Multiple HTTP Verbs
+// Route::match(['GET', 'POST'], '/blog', [PostsController::class, 'index']);
+// Route::any('/blog', [PostsController::class, 'index']);
+
+// Return view
+// Route::view('/blog', 'blog.index', ['name' => 'Code with Aima']);
+
+// Route::resource('blog', PostsController::class);
 
 // route for the invoke method
 Route::get('/', HomeController::class);
