@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Route;
@@ -19,3 +20,6 @@ use Barryvdh\Debugbar\Twig\Extension\Debug;
 
 // Route::get('/blog', [PostsController::class, 'index']);
 Route::resource('blog', PostsController::class);
+
+// route for the invoke method
+Route::get('/', HomeController::class);
