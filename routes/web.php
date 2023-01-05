@@ -16,24 +16,28 @@ use Barryvdh\Debugbar\Twig\Extension\Debug;
     OPTIONS - ASK THE SERVER WHICH VERBS ARE ALLOWED
 */
 
-/*
+
 
 // GET
 Route::get('/blog', [PostsController::class, 'index']);
-Route::get('/blog/1', [PostsController::class, 'show']);
+Route::get('/blog/{id}', [PostsController::class, 'show']);
 
 // POST
 Route::get('/blog/create', [PostsController::class, 'create']);
 Route::post('/blog', [PostsController::class, 'store']);
 
 // PUT / PATCH
-Route::get('/blog/edit/1', [PostsController::class, 'edit']);
-Route::patch('/blog/1', [PostsController::class, 'update']);
+Route::get('/blog/edit/{id}', [PostsController::class, 'edit']);
+Route::patch('/blog/{id}', [PostsController::class, 'update']);
 
 // DELETE
-Route::delete('/blog/1', [PostsController::class, 'destroy']);
+Route::delete('/blog/{id}', [PostsController::class, 'destroy']);
 
-*/
+
+
+Route::resource('blog', PostsController::class);
+// route for the invoke method
+Route::get('/', HomeController::class);
 
 // Multiple HTTP Verbs
 // Route::match(['GET', 'POST'], '/blog', [PostsController::class, 'index']);
@@ -41,8 +45,3 @@ Route::delete('/blog/1', [PostsController::class, 'destroy']);
 
 // Return view
 // Route::view('/blog', 'blog.index', ['name' => 'Code with Aima']);
-
-// Route::resource('blog', PostsController::class);
-
-// route for the invoke method
-Route::get('/', HomeController::class);
