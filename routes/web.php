@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PostsController;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Route;
 use Barryvdh\Debugbar\Twig\Extension\Debug;
@@ -16,15 +17,5 @@ use Barryvdh\Debugbar\Twig\Extension\Debug;
 |
 */
 
-Route::get('/', function () {
-    // Debugbar::startMeasure('Wohoo', 'Rendering our first message');
-    // try {
-    //     throw new Exception('Try Message!');
-    // } catch (Exception $e) {
-    //     Debugbar::addException($e);
-    // }
-    $name = "Code with Dary";
-    return view('welcome', [
-        'name' => $name,
-    ]);
-});
+// Route::get('/blog', [PostsController::class, 'index']);
+Route::resource('blog', PostsController::class);

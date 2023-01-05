@@ -1,0 +1,1 @@
+<h1>Index method of blogs</h1>
