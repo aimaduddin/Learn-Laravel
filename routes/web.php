@@ -20,7 +20,9 @@ use Barryvdh\Debugbar\Twig\Extension\Debug;
 
 // GET
 Route::get('/blog', [PostsController::class, 'index']);
-Route::get('/blog/{id}', [PostsController::class, 'show']);
+// Route::get('/blog/{id}', [PostsController::class, 'show'])->whereNumber('id');
+// Route::get('/blog/{id}/{name}', [PostsController::class, 'show'])->whereAlpha('name');
+Route::get('/blog/{id}/{name}', [PostsController::class, 'show'])->whereNumber('id')->whereAlpha('name');
 
 // POST
 Route::get('/blog/create', [PostsController::class, 'create']);
@@ -35,7 +37,7 @@ Route::delete('/blog/{id}', [PostsController::class, 'destroy']);
 
 
 
-Route::resource('blog', PostsController::class);
+// Route::resource('blog', PostsController::class);
 // route for the invoke method
 Route::get('/', HomeController::class);
 
