@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,13 +15,35 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')->get();
+        // $posts = DB::table('posts')->get(); using query builder to fetch posts from DB
 
+        // Eloquent
+        // $posts = Post::all(); retrieve all posts
+        // $posts = Post::get(); retrieve all posts (you can add method chaining)
+        // $posts = Post::orderBy('id', 'desc')->take(5)->get(); order by clause
+        // $posts = Post::where('min_to_read', '!=', 2)->get(); where clause
+
+        // Chunk function
+        // Post::chunk(25, function ($posts) {
+        //     foreach ($posts as $post) {
+        //         echo $post->title . '<br>';
+        //     }
+        // });
+
+        // $posts = Post::sum('min_to_read'); sum
+        // $posts = Post::avg('min_to_read'); average
+
+        return view('blog.index', [
+            'posts' => Post::orderBy('updated_at', 'desc')->get()
+        ]);
+
+
+        // Ways on how to pass data to blade template
         // return view('blog.index')->with('posts', $posts);
         // return view('blog.index', compact('posts'));
-        return view('blog.index', [
-            'posts' => $posts
-        ]);
+        // return view('blog.index', [
+        //     'posts' => $posts
+        // ]);
     }
 
     /**
@@ -52,7 +75,9 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        return $id;
+        return view('blog.show', [
+            'post' => Post::findOrFail($id)
+        ]);
     }
 
     /**
