@@ -27,11 +27,11 @@ use Barryvdh\Debugbar\Twig\Extension\Debug;
 
 Route::prefix('/blog')->group(function () {
     // GET
+    Route::get('/create', [PostsController::class, 'create'])->name('blog.create');
     Route::get('/', [PostsController::class, 'index'])->name('blog.index');
     Route::get('/{id}', [PostsController::class, 'show'])->name('blog.show');
 
     // POST
-    Route::get('/create', [PostsController::class, 'create'])->name('blog.create');
     Route::post('/', [PostsController::class, 'store'])->name('blog.store');
 
     // PUT / PATCH

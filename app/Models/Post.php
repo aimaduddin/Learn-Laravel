@@ -20,4 +20,8 @@ class Post extends Model
     // protected $attributes = [ defining default value for attributes
     //     'is_published' => true
     // ]
+
+    protected $fillable = [
+        'title', 'excerpt', 'body', 'image_path', 'is_published', 'min_to_read'
+    ];
 }
