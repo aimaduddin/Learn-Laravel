@@ -74,6 +74,14 @@ class PostsController extends Controller
         // $post->is_published = $request->is_published === 'on';
         // $post->save();
 
+        $request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'excerpt' => 'required',
+            'body' => 'required',
+            'image' => ['required', 'mimes:jpg,jpeg,png', 'max:5048'],
+            'min_to_read' => 'required|min:0|max:60',
+        ]);
+
         Post::create([
             'title' => $request->title,
             'excerpt' => $request->excerpt,
