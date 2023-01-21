@@ -1,58 +1,34 @@
 <?php
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\FallbackController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
-use Barryvdh\Debugbar\Facades\Debugbar;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Barryvdh\Debugbar\Twig\Extension\Debug;
 
 /*
-    GET - REQUEST A RESOURCE
-    POST - CREATE A NEW RESOURCE
-    PUT - UPDATE A RESOURCE
-    PATCH - MODIFY A RESOURCE
-    DELETE - DELETE A RESOURCE
-    OPTIONS - ASK THE SERVER WHICH VERBS ARE ALLOWED
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
 */
 
-
-//Regex
-// Route::get('/blog/{id}', [PostsController::class, 'show'])->whereNumber('id');
-// Route::get('/blog/{id}/{name}', [PostsController::class, 'show'])->whereAlpha('name');
-// Route::get('/blog/{id}/{name}', [PostsController::class, 'show'])->whereNumber('id')->whereAlpha('name');
-
-
-
-Route::prefix('/blog')->group(function () {
-    // GET
-    Route::get('/create', [PostsController::class, 'create'])->name('blog.create');
-    Route::get('/', [PostsController::class, 'index'])->name('blog.index');
-    Route::get('/{id}', [PostsController::class, 'show'])->name('blog.show');
-
-    // POST
-    Route::post('/', [PostsController::class, 'store'])->name('blog.store');
-
-    // PUT / PATCH
-    Route::get('/edit/{id}', [PostsController::class, 'edit'])->name('blog.edit');
-    Route::patch('/{id}', [PostsController::class, 'update'])->name('blog.update');
-
-    // DELETE
-    Route::delete('/{id}', [PostsController::class, 'destroy'])->name('blog.destroy');
+Route::get('/', function () {
+    return view('welcome');
 });
 
-// Route::resource('blog', PostsController::class);
-// route for the invoke method
-Route::get('/', HomeController::class);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Multiple HTTP Verbs
-// Route::match(['GET', 'POST'], '/blog', [PostsController::class, 'index']);
-// Route::any('/blog', [PostsController::class, 'index']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-// Return view
-// Route::view('/blog', 'blog.index', ['name' => 'Code with Aima']);
+require __DIR__ . '/auth.php';
 
-
-// Fallback route
-Route::fallback(FallbackController::class);
+Route::resource('blog', PostsController::class);
